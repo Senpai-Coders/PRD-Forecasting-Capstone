@@ -6,10 +6,16 @@ import { BsTruck } from "react-icons/bs";
 import { MdAttachMoney } from "react-icons/md";
 import { GoPackage } from "react-icons/go";
 import { ImStatsDots } from "react-icons/im";
-import { AiOutlineLoading } from "react-icons/ai";
-import { FaPen } from "react-icons/fa";
+
+import { AiFillHome } from "react-icons/ai";
+import { HiOutlineClipboardList } from "react-icons/hi";
+import { FaPen, FaUsers, FaUser } from "react-icons/fa";
+import { MdInventory } from "react-icons/md";
+import { BsCurrencyDollar } from "react-icons/bs";
+import { IoIosExit } from "react-icons/io";
 
 import LogoutConfirm from "./modals/Confirm";
+import Link from "next/link";
 
 const SideBar = () => {
   const router = useRouter();
@@ -104,8 +110,115 @@ const SideBar = () => {
         acceptText={"Yes"}
         declineText={"No"}
       />
-      <div className="card rounded-none fixed z-40 w-64 py-3 h-screen shadow-lg duration-300 ease-in-out top-0">
-        <div className="mt-3  mx-4">
+      <div className="bg-[#1e293b] sidebar w-1/6 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in ">
+        <div className="sidebar-header flex items-center justify-center py-4 px-4">
+          <div className="inline-flex">
+            <Link href="/" className="inline-flex flex-row items-center">
+              <img className="w-16 mr-2" src="/prd_logo.png" />
+              <span className="leading-10 text-gray-100 text-2xl font-bold ml-1 uppercase">
+                Philip Rice Dealer
+              </span>
+            </Link>
+          </div>
+        </div>
+        <div className="sidebar-content px-4 py-6">
+          <ul className="flex flex-col w-full">
+            <li className="my-px">
+              <a
+                onClick={()=>router.push("/admin/")}
+                className={"flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700 " + `${router.route === '/admin' ? "bg-gray-100 text-gray-700" : "text-gray-300 "}`}
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <AiFillHome />
+                </span>
+                <span className="ml-3">Dashboard</span>
+              </a>
+            </li>
+            <li className="my-px">
+              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">
+                Store Management
+              </span>
+            </li>
+            <li className="my-px">
+              <a
+                onClick={()=>router.push("/admin/orders")}
+                className={"flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 " + `${router.route === '/admin/orders' ? "bg-gray-100 text-gray-700" : "text-gray-300 "}`}
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <HiOutlineClipboardList />
+                </span>
+                <span className="ml-3">Orders</span>
+              </a>
+            </li>
+            <li className="my-px">
+              <a
+                onClick={()=>router.push("/admin/inventory")}
+                className={"flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700 " + `${router.route === '/admin/inventory' ? "bg-gray-100 text-gray-700" : "text-gray-300 "}`}
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <MdInventory />
+                </span>
+                <span className="ml-3">Inventory</span>
+              </a>
+            </li>
+            <li className="my-px">
+              <a
+                onClick={()=>router.push("/admin/dailySales")}
+                className={"flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 " + `${router.route === '/admin/dailySales' ? "bg-gray-100 text-gray-700" : "text-gray-300 "}`}
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <BsCurrencyDollar />
+                </span>
+                <span className="ml-3">Daily Sales</span>
+                {/* <span className="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto">
+                  1k
+                </span> */}
+              </a>
+            </li>
+            <li className="my-px">
+              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">
+                Account Management
+              </span>
+            </li>
+            <li className="my-px">
+              <a
+                onClick={()=>{router.push("/general/profile")}}
+                className="flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <FaUser />
+                </span>
+                <span className="ml-3">Profile</span>
+              </a>
+            </li>
+            <li className="my-px">
+              <a
+                onClick={()=>router.push("/admin/accounts")}
+                className={"flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 " + `${router.route === '/admin/accounts' ? "bg-gray-100 text-gray-700" : "text-gray-300 "}`}
+                >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <FaUsers />
+                </span>
+                <span className="ml-3">Accounts</span>
+                {/* <span className="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto">
+                  10
+                </span> */}
+              </a>
+            </li>
+            <li className="my-px">
+              <button
+                onClick={() => setModalState(1)}
+                className="flex flex-row items-center cursor-pointer h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 w-full"
+              >
+                <span className="flex items-center justify-center text-2xl text-yellow-500">
+                  <IoIosExit />
+                </span>
+                <span className="ml-3">Logout</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        {/* <div className="mt-3  mx-4">
           <div className="flex justify-start items-center">
             <img
               className="h-12"
@@ -172,9 +285,9 @@ const SideBar = () => {
               </>
             )}
           </div>
-        </div>
+        </div> */} 
       </div>
-      <div className="w-64"></div>
+      {/* <div className="w-64"></div> */}
     </>
   );
 };

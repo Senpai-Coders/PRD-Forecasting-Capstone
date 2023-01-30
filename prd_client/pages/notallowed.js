@@ -3,33 +3,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 
 
-const Index = () => {
+const NotAllowed = () => {
   const router = useRouter();
-
-  const loadUser = () => {
-    const response = fetch("/api/prd/userInfo", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
-      .then((res) => {
-        if (res.status === 401) router.push("/login");
-        return res;
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.userType === 0) router.push("/shop");
-        else if (data.userType === 1) router.push("/admin");
-      });
-  };
-
-  useEffect(() => {
-    loadUser();
-  }, []);
 
   return (
     <div className="bg-3">
@@ -80,17 +55,18 @@ const Index = () => {
       </Head>
       <section
         className={
-          "backdrop-blur-lg animate-pulse font-inter h-screen w-full flex justify-center items-center " +
+          "backdrop-blur-lg font-inter h-screen w-full flex justify-center items-center " +
           ``
         }
       >
-        <img
-          src="/logo_big.png"
-          className="h-8 sm:h-14 md:h-16 lg:h-24 font-bold md:text-2xl font-inter"
-        />
+        <div className="mx-8 md:mx-0 bg-base-100/40 p-4 md:p-8 rounded-lg">
+            <img src="/notallowed.png" className="h-24 mx-auto"/>
+            <p className="md:text-lg text-center">Your account is not allowed on this page</p>
+            <button onClick={()=>{router.back()}} className="w-full mt-6 btn btn-ghost btn-outline">Go Back</button>
+        </div>
       </section>
     </div>
   );
 };
 
-export default Index;
+export default NotAllowed;

@@ -1,6 +1,10 @@
 var validator = require("email-validator");
 var moment = require('moment'); 
 
+import { MdPendingActions, MdLocalShipping } from "react-icons/md";
+import { TbTruckLoading } from "react-icons/tb";
+import { AiOutlineFileDone, AiOutlineStop } from "react-icons/ai";
+
 export const Validator = (val, validations, minLength, maxLength, expected) => {
     let res = true;
 
@@ -48,6 +52,15 @@ export const statusToWord = ( status ) => {
     return "untracked"
 }
 
+export const statusToIcon = ( status ) => {
+    if(status === -1) return <AiOutlineStop className="text-red-700 text-lg"/>
+    if(status === 1) return <MdPendingActions className="text-yellow-700 text-lg" />
+    if(status === 2) return <TbTruckLoading  className="text-blue-700 text-lg"/>
+    if(status === 3) return <MdLocalShipping  className="text-indigo-700 text-lg"/>
+    if(status === 4) return <AiOutlineFileDone  className="text-green-700 text-lg"/>
+    return "untracked"
+}
+
 export const getStatusColor = ( status ) => {
     if(status === -1) return "text-rose-600"
     if(status === 1) return "text-gray-700 animate-pulse duration-700"
@@ -74,3 +87,13 @@ export const dateMomentBeautify = ( date, format) => {
         date
       ).format(format)
 }
+
+export const scanVals = ( obj, what, skips) => {
+    for(const prop in obj){
+        const toCheck = `${obj[prop]}`.toLowerCase()
+        if(`${skips.join()}`.includes(prop)) continue
+        if(prop === "_id" && what.length !== obj[prop].length)continue
+        if(toCheck.includes(what.toLowerCase()) || toCheck == what.toLowerCase()) return true
+    }
+    return false
+  }
